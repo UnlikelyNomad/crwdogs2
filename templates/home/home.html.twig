@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% import 'events/events.html.twig' as events %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <h4>Upcoming Events</h4>
+    {{ events.summary() }}
+{% endblock %}

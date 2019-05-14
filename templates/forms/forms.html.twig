@@ -1,0 +1,16 @@
+{% macro input(label, name, type, comment = null, value = null, required = false, autofocus = false) %}
+    <div class="container text-center mb-4">
+        <div class="form-row">
+            <label for="{{ name }}" class="col-sm-3 col-form-label">{{ label }}</label>
+            <div class="col-sm-6">
+                <input type="{{ type }}" value="{{ value|e }}" name="{{ name }}" id="{{ name }}" class="form-control" {% if required %}required{% endif %} {% if autofocus %}autofocus{% endif %}>
+            </div>
+        </div>
+        {% if comment is not null %}
+        <div class="form-row px-2">
+            <div class="col-sm-3"></div>
+            <small class="form-text text-muted col-sm-6">{{ comment }}</small>
+        </div>
+        {% endif %}
+    </div>
+{% endmacro %}

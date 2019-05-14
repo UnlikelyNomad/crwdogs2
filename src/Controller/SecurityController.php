@@ -21,4 +21,15 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
+
+    /**
+     * @Route("/register", name="app_register", methods={"GET", "POST"})
+     */
+    public function register(): Response
+    {
+        $lastUsername = '';
+        return $this->render('security/register.html.twig', [
+            'last_username' => $lastUsername,
+        ]);
+    }
 }

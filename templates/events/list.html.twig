@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% import 'events/events.html.twig' as events %}
+
+{% block title %}Events{% endblock %}
+
+{% block body %}
+    {{ events.summary() }}
+{% endblock %}
