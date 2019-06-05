@@ -44,11 +44,6 @@ class User implements UserInterface
     private $last_name;
 
     /**
-     * @ORM\Column(type="string", length=100, unique=true)
-     */
-    private $username;
-
-    /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $phone;
@@ -57,6 +52,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $location;
+
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $nick;
 
     public function getId(): ?int
     {
@@ -160,13 +160,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
     public function getPhone(): ?string
     {
         return $this->phone;
@@ -187,6 +180,18 @@ class User implements UserInterface
     public function setLocation(?string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getNick(): ?string
+    {
+        return $this->nick;
+    }
+
+    public function setNick(string $nick): self
+    {
+        $this->nick = $nick;
 
         return $this;
     }

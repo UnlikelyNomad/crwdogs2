@@ -4,24 +4,31 @@
 
 {% block title %}Register{% endblock %}
 
+{% block banner %}Sign up for a CRW Dogs account{% endblock %}
+
 {% block body %}
-    <form method="post">
-        {% if error is defined and error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
 
         <div class="container text-center mb-5">
-            <h1 class="h3 font-weight-normal">Sign up for a CRW Dogs account:</h1>
             <p class="lead">Creating a CRW Dogs account allows you to use this site for organizing events, view and post to the forums, and use other services like sharing housing and rides during events.</p>
         </div>
 
+        {#
         {{ forms.input("Email Address", "email", "email", "Used to log in. We'll email you a random password for your first login.", "", true, true)}}
-        {{ forms.input("First Name", "first_name", "text") }}
-        {{ forms.input("Last Name", "last_name", "text") }}
-        {{ forms.input("Phone", "phone", "text", "Provided to organizers of events you register for if they need to contact you before or during an event, otherwise not shared.") }}
-        {{ forms.input("Location", "location", "text", "Displayed on your profile to give people an idea of where you jump.") }}
+        {{ forms.input("Nickname", "nick", "text", "The name we display for you in the forums and throughout the site.", "", true)}}
+        {{ forms.input("First Name", "first_name", "text", "Your real name will only be visible to organizers of events you register for.", "", true) }}
+        {{ forms.input("Last Name", "last_name", "text", null, "", true) }}
+        {{ forms.input("Phone", "phone", "text", "Provided to organizers of events you register for if they need to contact you before or during an event, otherwise not shared.", "", true) }}
+        {{ forms.input("Location", "location", "text", "Displayed on your profile to give people an idea of where you jump.", "", true) }}
+        #}
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        {{ forms.item(form.email) }}
+        {{ forms.item(form.nick) }}
+        {{ forms.item(form.first_name) }}
+        {{ forms.item(form.last_name) }}
+        {{ forms.item(form.phone) }}
+        {{ forms.item(form.location) }}
 
         <div class="row mt-5">
             <div class="col-sm-3"></div>
@@ -31,5 +38,6 @@
                 </button>
             </div>
         </div>
-    </form>
+    
+    {{ form_end(form) }}
 {% endblock %}

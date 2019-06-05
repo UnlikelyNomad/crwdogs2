@@ -14,3 +14,21 @@
         {% endif %}
     </div>
 {% endmacro %}
+
+{% macro item(item) %}
+    <div class="container text-center mt-3">
+        <div class="form-row">
+            <div class="col-sm-3">
+                {{ form_label(item) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(item, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+        <div class="form-row px-2">
+            <div class="col-sm-3"></div>
+            <small class="form-text text-muted col-sm-6">{{ form_help(item) }}</small>
+            {{ form_errors(item) }}
+        </div>
+    </div>
+{% endmacro %}

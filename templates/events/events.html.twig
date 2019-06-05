@@ -1,20 +1,27 @@
 {% macro summary(count = 5) %}
-    <div class="next_events border rounded">
+    <div class="container">
         {% for i in range(1, count) %}
-            {% set event = {'id': i, 'name': 'Event ' ~ i, 'start': 'June 17', 'end': 'June 19', 'description': 'A meaningful description!'} %}
+            {% set event = {'id': i, 'name': 'Event ' ~ i, 'start': 'June 17', 'end': 'June 19', 'description': 'A meaningful description!', 'location': 'Somewhereville, TX'} %}
 
             <div class="container {% if i % 2 == 0 %}bg-info text-light{% else %}text-info{% endif %}">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <a href="{{ path('event', {'id': event.id}) }}" class="{% if i % 2 == 0 %}text-light{% else %}text-info{% endif %}">
                             <u><strong>{{ event.name }}</strong></u>
                         </a>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <em>{{ event.start }} - {{ event.end }}</em>
                     </div>
                 </div>
-                <p class="container">{{ event.description }}</p>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="container">{{ event.description }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        {{ event.location }}
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>

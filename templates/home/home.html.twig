@@ -4,7 +4,9 @@
 
 {% block title %}Home{% endblock %}
 
+{% block banner %}Home{% endblock %}
+
 {% block body %}
-    <h4>Upcoming Events</h4>
+    <div class="text-center h5">Upcoming Events</div>
     {{ events.summary() }}
 {% endblock %}
