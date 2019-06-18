@@ -8,6 +8,10 @@
     {{ form_start(form) }}
         {{ form_errors(form) }}
 
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
         <div class="container text-center mb-5">
             <p class="lead">Creating a CRW Dogs account allows you to use this site for organizing events, view and post to the forums, and use other services like planning housing and rides during events.</p>
         </div>

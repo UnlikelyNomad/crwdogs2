@@ -58,6 +58,11 @@ class User implements UserInterface
      */
     private $nick;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $reset_pass;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -192,6 +197,18 @@ class User implements UserInterface
     public function setNick(string $nick): self
     {
         $this->nick = $nick;
+
+        return $this;
+    }
+
+    public function getResetPass(): ?bool
+    {
+        return $this->reset_pass;
+    }
+
+    public function setResetPass(bool $reset_pass): self
+    {
+        $this->reset_pass = $reset_pass;
 
         return $this;
     }

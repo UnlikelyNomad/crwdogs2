@@ -14,7 +14,9 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'nav/topbar.html.twig' %}
+        {% block navbar %}
+            {% include 'nav/topbar.html.twig' %}
+        {% endblock %}
         <div class="top-content">
 
             <div class="banner text-center">
