@@ -78,6 +78,18 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
+        },
+        "files": [
+            "./config/packages/fos_ckeditor.yaml"
+        ]
+    },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
     },
@@ -147,6 +159,9 @@
             "ref": "c82bead70f9a4f656354a193df7bf0ca2114efa0"
         }
     },
+    "symfony/asset": {
+        "version": "v4.2.10"
+    },
     "symfony/cache": {
         "version": "v4.2.8"
     },
@@ -183,6 +198,9 @@
     },
     "symfony/event-dispatcher": {
         "version": "v4.2.8"
+    },
+    "symfony/expression-language": {
+        "version": "v4.2.10"
     },
     "symfony/filesystem": {
         "version": "v4.2.8"

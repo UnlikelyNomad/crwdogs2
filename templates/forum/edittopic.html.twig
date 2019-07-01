@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% import "forms/forms.html.twig" as forms %}
+
+{% block title %}New Topic - {{ category.getName() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% form_theme form 'forms/theme.html.twig' %}
+        {{ form_start(form) }}
+
+        {{ forms.item(form.subject) }}
+        {{ forms.item(form.message) }}
+
+        {% if perms.canMod() %}
+            {{ forms.item(form.closed) }}
+            {{ forms.item(form.sticky) }}
+        {% endif %}
+
+        <div class="row mt-3">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 text-center mb-5">
+                <button class="btn btn-lg btn-dark" type="submit">
+                    {{ label }}
+                </button>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use \DateTime;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,6 +67,7 @@ class SecurityController extends AbstractController
             $mail->send();
 
             $user->setResetPass(false);
+            $user->setTempKey('');
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -96,6 +99,10 @@ class SecurityController extends AbstractController
             $password = bin2hex(random_bytes(8));
 
             $user->setPassword($passwordEncoder->encodePassword($user, $password));
+
+            $user->setRegistered(new DateTime());
+            $user->setRegIp($req->getClientIp());
+            $user->setTempKey(bin2hex(random_bytes(64)));
 
             $mail = $mailer->createMail();
 

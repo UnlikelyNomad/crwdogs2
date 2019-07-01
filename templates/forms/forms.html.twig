@@ -15,14 +15,14 @@
     </div>
 {% endmacro %}
 
-{% macro item(item) %}
+{% macro item(item, style = "") %}
     <div class="container text-center mt-3">
         <div class="form-row">
             <div class="col-sm-3">
                 {{ form_label(item) }}
             </div>
             <div class="col-sm-6">
-                {{ form_widget(item, { 'attr': {'class': 'form-control'} }) }}
+                {{ form_widget(item, { 'attr': {'class': 'form-control', 'style': style } }) }}
             </div>
         </div>
         <div class="form-row px-2">

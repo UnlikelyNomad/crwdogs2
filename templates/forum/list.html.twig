@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forums{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a href="/forum/new" class="btn btn-dark">New Category</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% for category in categories %}
+        <div class="container card mt-2 forum-category">
+            <div class="row forum-header">
+                <div class="col-8">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="/forum/{{ category.id }}/edit" class="btn-sm btn-dark my-1" style="float: right;">Edit</a>
+                    {% endif %}
+                    <h4>
+                        <a href="/forum/{{ category.id }}" class="forum-link">{{ category.name }}</a>
+                    </h4>
+                </div>
+                <div class="col-2 text-center">
+                    Topics: {{ category.getNumTopics() }}
+                </div>
+                <div class="col-2 text-center">
+                    Posts: {{ category.getNumPosts() }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ category.description|raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

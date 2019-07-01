@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ topic.subject }}{% endblock %}
+
+{% block body %}
+    <div class="forum-topic-actions">
+        
+    </div>
+    <div class="text-muted text-center">
+        {{ topic.message|raw }}
+    </div>
+{% endblock %}

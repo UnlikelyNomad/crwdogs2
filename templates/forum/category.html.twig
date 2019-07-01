@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.name }} - Forum{% endblock %}
+
+{% block body %}
+    {% if perms.canCreate() %}
+    <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a href="/forum/{{ category.id }}/new" class="btn btn-dark">New Topic</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% for topic in topics %}
+        <div class="container card mt-2 forum-category">
+            <div class="row forum-header">
+                <div class="col-8">
+                    {% if perms.canMod() %}
+                        <a href="/topic/{{ topic.id }}/edit" class="btn-sm btn-dark my-1" style="float: right;">Edit</a>
+                    {% endif %}
+                    <h4>
+                        <a href="/topic/{{ topic.id }}" class="forum-link">{{ topic.subject }}</a>
+                    </h4>
+                </div>
+                <div class="col-2 text-center">
+                    Replies: {{ topic.getNumReplies() }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-muted">
+                    {{ topic.message|slice(0,50)|raw }}
+                    {% if topic.message|length > 50 %}...{% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

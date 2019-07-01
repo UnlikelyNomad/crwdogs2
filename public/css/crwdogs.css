@@ -21,7 +21,7 @@ body {
 .inner-content {
     background-color: white;
     box-shadow: 0px 0px 10px white;
-    padding-bottom: 10px;
+    padding: 10px;
 }
 
 .banner {
@@ -41,4 +41,26 @@ body {
     color: white;
     padding: 0.1em;
     height: 100%;
+}
+
+.forum-category {
+    box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+}
+
+.forum-header {
+    border-radius: 0.25rem;
+    background-color: #4488C0;
+    color: white
+}
+
+.forum-link {
+    color: white;
+}
+
+.forum-link:hover {
+    color: white;
+}
+
+.forum-category p:last-child {
+    margin-bottom: 0;
 }
