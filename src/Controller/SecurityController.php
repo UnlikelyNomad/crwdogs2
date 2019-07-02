@@ -98,6 +98,8 @@ class SecurityController extends AbstractController
 
             $password = bin2hex(random_bytes(8));
 
+            $site = $req->getSchemeAndHttpHost();
+
             $user->setPassword($passwordEncoder->encodePassword($user, $password));
 
             $user->setRegistered(new DateTime());
@@ -108,7 +110,7 @@ class SecurityController extends AbstractController
 
             $mail->setFrom('admin@crwdogs.com', 'CRW Dogs Admin');
             $mail->addAddress($user->getEmail(), $user->getFirstName() . ' ' . $user->getLastName());
-            $mail->Subject = 'crwdogs.com User Registration';
+            $mail->Subject = $req->getHost() . ' User Registration';
 
             $msg = 'Thank you for your registration, ' . $user->getFirstName() . ' ' . $user->getLastName() . '!<br/>';
             $msg .= '<br/>';
@@ -117,7 +119,7 @@ class SecurityController extends AbstractController
             $msg .= 'Phone: ' . $user->getPhone() . '<br/>';
             $msg .= 'Location: ' . $user->getLocation() . '<br/>';
             $msg .= '<br/>';
-            $msg .= 'To login, please visit <a href="https://crwdogs.com/login">https://crwdogs.com/login</a> and login with this email and your password:<br/>';
+            $msg .= 'To login, please visit <a href="' . $site . '/login">' . $site . '/login</a> and login with this email and your password:<br/>';
             $msg .= '<br/>';
             $msg .= $password . '<br/>';
             $msg .= '<br/>';

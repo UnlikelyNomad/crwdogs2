@@ -55,6 +55,7 @@ body {
 
 .forum-link {
     color: white;
+    text-decoration: underline;
 }
 
 .forum-link:hover {

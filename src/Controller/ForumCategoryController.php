@@ -41,18 +41,6 @@ class ForumCategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->getData();
 
-            if (!in_array('ROLE_ADMIN', $category->getRolesCreate())) {
-                $create = $category->getRolesCreate();
-                $create[] = 'ROLE_ADMIN';
-                $category->setRolesCreate($create);
-            }
-
-            if (!in_array('ROLE_ADMIN', $category->getRolesMod())) {
-                $mod = $category->getRolesMod();
-                $mod[] = 'ROLE_ADMIN';
-                $category->setRolesMod($mod);
-            }
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();

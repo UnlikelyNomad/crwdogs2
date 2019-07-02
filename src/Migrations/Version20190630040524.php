@@ -22,7 +22,7 @@ final class Version20190630040524 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE forum_category DROP last_post, DROP last_post_id, DROP last_poster_id');
+        $this->addSql('ALTER TABLE forum_category DROP last_post, DROP last_post_id, DROP last_poster_id, DROP role_mod');
         $this->addSql('ALTER TABLE forum_post DROP edit_user_id');
         $this->addSql('ALTER TABLE forum_post ADD CONSTRAINT FK_996BCC5A1F55203D FOREIGN KEY (topic_id) REFERENCES forum_topic (id)');
         $this->addSql('ALTER TABLE forum_post ADD CONSTRAINT FK_996BCC5AA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
@@ -40,7 +40,7 @@ final class Version20190630040524 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE forum_category ADD last_post DATETIME DEFAULT NULL, ADD last_post_id INT DEFAULT NULL, ADD last_poster_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE forum_category ADD last_post DATETIME DEFAULT NULL, ADD last_post_id INT DEFAULT NULL, ADD last_poster_id INT DEFAULT NULL, role_mod VARCHAR(255) NOT NULL');
         $this->addSql('ALTER TABLE forum_post DROP FOREIGN KEY FK_996BCC5A1F55203D');
         $this->addSql('ALTER TABLE forum_post DROP FOREIGN KEY FK_996BCC5AA76ED395');
         $this->addSql('DROP INDEX IDX_996BCC5A1F55203D ON forum_post');
