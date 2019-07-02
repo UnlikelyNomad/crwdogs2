@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
 
             $mail->setFrom('admin@crwdogs.com', 'CRW Dogs Admin');
             $mail->addAddress($user->getEmail(), $user->getFirstName() . ' ' . $user->getLastName());
-            $mail->Subject = 'crwdogs.com User Password Changed';
+            $mail->Subject = $req->getHost() . ' User Password Changed';
 
             $msg = 'The password for this email address has recently been changed.<br/>';
             $msg .= '<br/>';
