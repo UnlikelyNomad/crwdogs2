@@ -14,7 +14,7 @@ use App\Entity\ForumCategory;
 use App\Entity\ForumTopic;
 use App\Entity\Role;
 
-use App\Security\ForumSecurity;
+use App\Security\ForumCategorySecurity;
 
 use App\Form\ForumEditCategoryType;
 use App\Form\ForumEditTopicType;
@@ -91,7 +91,7 @@ class ForumCategoryController extends AbstractController
         $topic = new ForumTopic();
 
         $form = $this->createForm(ForumEditTopicType::class, $topic);
-        $perms = new ForumSecurity($this->getUser(), $category);
+        $perms = new ForumCategorySecurity($this->getUser(), $category);
 
         $form->handleRequest($req);
 
@@ -100,6 +100,7 @@ class ForumCategoryController extends AbstractController
             $topic->setCategory($category);
             $topic->setUser($this->getUser());
             $topic->setCreated(new DateTime());
+            $topic->setLastPost($topic->getCreated());
 
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($topic);
@@ -121,7 +122,7 @@ class ForumCategoryController extends AbstractController
      * @Route("/forum/{id}/{page}", name="forum_category")
      */
     public function category(ForumCategory $category, $page = 1) {
-        $perms = new ForumSecurity($this->getUser(), $category);
+        $perms = new ForumCategorySecurity($this->getUser(), $category);
 
         $repo = $this->getDoctrine()->getRepository(ForumTopic::class);
         $topics = $repo->pagedTopics($category, $page, $this->getUser()->getNumDispTopics());
@@ -140,11 +141,19 @@ class ForumCategoryController extends AbstractController
      */
     public function index()
     {
-        $repo = $this->getDoctrine()->getRepository(ForumCategory::class);
-        $categories = $repo->findInSortOrder();
+        $catRepo = $this->getDoctrine()->getRepository(ForumCategory::class);
+        $categories = $catRepo->findInSortOrder();
+
+        $topicRepo = $this->getDoctrine()->getRepository(ForumTopic::class);
+        $topics = [];
+
+        foreach ($categories as $category) {
+            $topics[] = $topicRepo->latestForCategory($category);
+        }
 
         return $this->render('forum/list.html.twig', [
             'categories' => $categories,
+            'topics' => $topics,
         ]);
     }
 }

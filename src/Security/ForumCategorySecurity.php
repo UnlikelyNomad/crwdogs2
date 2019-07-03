@@ -5,7 +5,7 @@ namespace App\Security;
 use App\Entity\User;
 use App\Entity\ForumCategory;
 
-class ForumSecurity {
+class ForumCategorySecurity {
 
     private $admin = false;
     private $read = false;

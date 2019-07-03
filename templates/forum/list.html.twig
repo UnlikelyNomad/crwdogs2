@@ -13,21 +13,29 @@
         </div>
     {% endif %}
     {% for category in categories %}
-        <div class="container card mt-2 forum-category">
+        <div class="container card mt-3 forum-category">
             <div class="row forum-header">
                 <div class="col-8">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="/forum/{{ category.id }}/edit" class="btn-sm btn-dark my-1" style="float: right;">Edit</a>
+                        <a href="/forum/{{ category.id }}/edit" class="btn-sm btn-dark my-1 ml-2" style="float: right;">Edit</a>
                     {% endif %}
+                    <div class="small" style="float:right;">Topics: {{ category.getNumTopics() }}</div>
                     <h4>
                         <a href="/forum/{{ category.id }}" class="forum-link">{{ category.name }}</a>
                     </h4>
                 </div>
-                <div class="col-2 text-center">
-                    Topics: {{ category.getNumTopics() }}
-                </div>
-                <div class="col-2 text-center">
-                    Posts: {{ category.getNumPosts() }}
+                <div class="col-4 text-center small">
+                    Last Reply: 
+                    {% set i = loop.index - 1 %}
+                    {% set l = 30 %}
+                    {% if topics[i] is defined and topics[i] is not null %}
+                        {{ topics[i].getLastPost()|localizeddate('long', 'short') }}<br>
+                        {% set sub = topics[i].getSubject() %}
+                        <em>{{ sub|slice(0, l)|raw }}{% if sub|length > l %}...{% endif %}</em>
+                        by {{ topics[i].getUser().getNick() }}
+                    {% else %}
+                        None
+                    {% endif %}
                 </div>
             </div>
             <div class="row">

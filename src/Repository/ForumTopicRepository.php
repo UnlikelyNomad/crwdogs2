@@ -50,17 +50,26 @@ class ForumTopicRepository extends ServiceEntityRepository
     */
 
     public function pagedTopics(ForumCategory $category, $page, $topicsPerPage) {
-        $catId = $category->getId();
 
         $first = ($page - 1) * $topicsPerPage;
 
         $page = $this->createQueryBuilder('t')
         ->andWhere('t.category = :cat')
         ->setParameter('cat', $category)
+        ->orderBy('t.last_post', 'DESC')
         ->setFirstResult($first)
         ->setMaxResults($topicsPerPage)
         ->getQuery()->getResult();
 
         return $page;
+    }
+
+    public function latestForCategory(ForumCategory $category) {
+        return $this->createQueryBuilder('t')
+        ->where('t.category = :cat')
+        ->setParameter('cat', $category)
+        ->orderBy('t.last_post', 'DESC')
+        ->setMaxResults(1)
+        ->getQuery()->getOneOrNullResult();
     }
 }
