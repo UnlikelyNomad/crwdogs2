@@ -124,10 +124,11 @@ class ForumCategoryController extends AbstractController
     public function category(ForumCategory $category, $page = 1) {
         $perms = new ForumCategorySecurity($this->getUser(), $category);
 
-        $repo = $this->getDoctrine()->getRepository(ForumTopic::class);
-        $topics = $repo->pagedTopics($category, $page, $this->getUser()->getNumDispTopics());
+        $topicRepo = $this->getDoctrine()->getRepository(ForumTopic::class);
+        $topics = $topicRepo->pagedTopics($category, $page, $this->getUser()->getNumDispTopics());
 
-        //var_dump($perms);
+        $repRepo = $this->getDoctrine()->getRepository(ForumPost::class);
+        $replies = $repRepo->postsForTopics($topics);
 
         return $this->render('forum/category.html.twig', [
             'category' => $category,
